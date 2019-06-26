@@ -70,9 +70,9 @@ public class UserApplicationService {
 		if (authUser == null) {
 			return userAuthDto;
 		}		
-		if (!Hashing.verifyHash(userDto.getPassword(), authUser.getPassword())) {
-			return userAuthDto;
-		}
+//		if (!Hashing.verifyHash(userDto.getPassword(), authUser.getPassword())) {
+//			return userAuthDto;
+//		}
 		userAuthDto = this.buildUserAuthDto(authUser);
 		return userAuthDto;
 	}

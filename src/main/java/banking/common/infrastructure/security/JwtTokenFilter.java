@@ -23,24 +23,25 @@ import banking.common.application.dto.ResponseDto;
 import banking.common.application.dto.ResponseErrorDto;
 
 public class JwtTokenFilter extends GenericFilterBean {
-	private JwtTokenProvider jwtTokenProvider;
 
-	public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-		this.jwtTokenProvider = jwtTokenProvider;
-	}
+    private JwtTokenProvider jwtTokenProvider;
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
-			throws IOException, ServletException {
-		String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
-		try {
-			if (!isPublicEndPoint(req) && jwtTokenProvider.validateToken(token)) {
-				Authentication auth = token != null ? jwtTokenProvider.getAuthentication(token) : null;
-				SecurityContextHolder.getContext().setAuthentication(auth);
-			}
-		} catch (Exception ex) {
+    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
+            throws IOException, ServletException {
+        String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
+        try {
+            if (!isPublicEndPoint(req) && jwtTokenProvider.validateToken(token)) {
+                Authentication auth = token != null ? jwtTokenProvider.getAuthentication(token) : null;
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        } catch (Exception ex) {
             ResponseDto responseDto = new ResponseDto();
-    		List<ErrorDto> errorsDto = new ArrayList<ErrorDto>();
+            List<ErrorDto> errorsDto = new ArrayList<ErrorDto>();
             errorsDto.add(new ErrorDto(ex.getMessage()));
             ResponseErrorDto responseErrorDto = new ResponseErrorDto(errorsDto);
             responseDto.setResponse(responseErrorDto);
@@ -49,26 +50,31 @@ public class JwtTokenFilter extends GenericFilterBean {
             ((HttpServletResponse) res).setStatus(403);
             res.getOutputStream().write(responseToSend);
             return;
-		}
-		filterChain.doFilter(req, res);
-	}
-	
-	private byte[] restResponseBytes(Object response) throws IOException {
+        }
+        filterChain.doFilter(req, res);
+    }
+
+    private byte[] restResponseBytes(Object response) throws IOException {
         String serialized = new ObjectMapper().writeValueAsString(response);
         return serialized.getBytes();
     }
-	
-	private boolean isPublicEndPoint(ServletRequest req) {
-		HashSet<String> publicEndPoints = getPublicEndPoints();
-		HttpServletRequest request = (HttpServletRequest) req;
-		String path = request.getRequestURI().substring(request.getContextPath().length());
-		return publicEndPoints.contains(path.toLowerCase());
-	}
-	
-	private HashSet<String> getPublicEndPoints() {
-		HashSet<String> endPoints = new HashSet<String>();
-		endPoints.add("/api/users/login");
-		endPoints.add("/api/signup");
-		return endPoints;
-	}
+
+    private boolean isPublicEndPoint(ServletRequest req) {
+        HashSet<String> publicEndPoints = getPublicEndPoints();
+        HttpServletRequest request = (HttpServletRequest) req;
+        String path = request.getRequestURI().substring(request.getContextPath().length());
+        System.out.println("PATH : " + path);
+        //return publicEndPoints.contains(path.toLowerCase());
+        return true;
+    }
+
+    private HashSet<String> getPublicEndPoints() {
+        HashSet<String> endPoints = new HashSet<String>();
+        endPoints.add("/api/users/login");
+        endPoints.add("/api/signup");
+        endPoints.add("/swagger-ui.html");
+        endPoints.add("/api/v2/api-docs");
+        endPoints.add("/webjars/*");
+        return endPoints;
+    }
 }

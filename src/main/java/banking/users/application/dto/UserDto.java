@@ -8,48 +8,49 @@ import banking.users.application.dto.deserializer.UserDtoDeserializer;
 
 @JsonDeserialize(using = UserDtoDeserializer.class)
 public class UserDto {
-	private long id;
-	private String name;
-	private String password;
-	private Set<UserClaimDto> claims;
-	
-	public UserDto() {
-	}
-	
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public UserDto(String name, String password) {
-		this.name = name;
-		this.password = password;
-	}
+    private long id;
+    private String name;
+    private String password;
+    private Set<UserClaimDto> claims;
 
-	public String getName() {
-		return name;
-	}
+    public UserDto() {
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public UserDto(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 
-	public Set<UserClaimDto> getClaims() {
-		return claims;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setClaims(Set<UserClaimDto> claims) {
-		this.claims = claims;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<UserClaimDto> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(Set<UserClaimDto> claims) {
+        this.claims = claims;
+    }
 }

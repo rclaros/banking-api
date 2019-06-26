@@ -1,40 +1,41 @@
 package banking.users.domain.entity;
 
 public class UserClaim {
-	private long id;
+
+    private long id;
     private String type;
     private String value;
     private User user;
-	
+
     public long getId() {
-		return id;
-	}
-	
+        return id;
+    }
+
     public void setId(long id) {
-		this.id = id;
-	}
-	
+        this.id = id;
+    }
+
     public String getType() {
-		return type;
-	}
-	
+        return type;
+    }
+
     public void setType(String type) {
-		this.type = type;
-	}
-	
+        this.type = type;
+    }
+
     public String getValue() {
-		return value;
-	}
-	
+        return value;
+    }
+
     public void setValue(String value) {
-		this.value = value;
-	}
-	
+        this.value = value;
+    }
+
     public User getUser() {
-		return user;
-	}
-	
+        return user;
+    }
+
     public void setUser(User user) {
-		this.user = user;
-	}
+        this.user = user;
+    }
 }

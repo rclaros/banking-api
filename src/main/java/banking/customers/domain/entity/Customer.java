@@ -5,13 +5,15 @@ import java.util.Set;
 import banking.accounts.domain.entity.BankAccount;
 
 public class Customer {
-	private long id;
+
+    private long id;
     private String firstName;
     private String lastName;
     private Boolean isActive;
+    private Integer age;
     private Set<BankAccount> bankAccounts;
 
-	public Customer() {
+    public Customer() {
     }
 
     public String getFullName() {
@@ -42,19 +44,28 @@ public class Customer {
         this.lastName = lastName;
     }
 
-	public Boolean getIsActive() {
-		return isActive;
-	}
+    public Boolean getIsActive() {
+        return isActive;
+    }
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
-	public Set<BankAccount> getBankAccounts() {
+    public Set<BankAccount> getBankAccounts() {
         return bankAccounts;
     }
 
     public void setBankAccounts(Set<BankAccount> bankAccounts) {
         this.bankAccounts = bankAccounts;
     }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
 }

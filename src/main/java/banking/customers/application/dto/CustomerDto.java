@@ -7,16 +7,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import banking.accounts.application.dto.BankAccountDto;
 
 public class CustomerDto {
-	private long id;
-	private String firstName;
-	private String lastName;
-	private Boolean isActive;
-	private Set<BankAccountDto> bankAccountsDto;
-	
-	public CustomerDto() {
+
+    private long id;
+    private String firstName;
+    private String lastName;
+    private Boolean isActive;
+    private Integer age;
+    private Set<BankAccountDto> bankAccountsDto;
+
+    public CustomerDto() {
     }
-	
-	public long getId() {
+
+    public long getId() {
         return id;
     }
 
@@ -24,36 +26,45 @@ public class CustomerDto {
         this.id = id;
     }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	@JsonProperty(value="isActive")
-	public Boolean isActive() {
-		return isActive;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
+    @JsonProperty(value = "isActive")
+    public Boolean isActive() {
+        return isActive;
+    }
 
-	public Set<BankAccountDto> getBankAccountsDto() {
-		return bankAccountsDto;
-	}
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
-	public void setBankAccountsDto(Set<BankAccountDto> bankAccountsDto) {
-		this.bankAccountsDto = bankAccountsDto;
-	}
+    public Set<BankAccountDto> getBankAccountsDto() {
+        return bankAccountsDto;
+    }
+
+    public void setBankAccountsDto(Set<BankAccountDto> bankAccountsDto) {
+        this.bankAccountsDto = bankAccountsDto;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
 }

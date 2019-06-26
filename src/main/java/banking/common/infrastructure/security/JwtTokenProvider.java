@@ -22,58 +22,59 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtTokenProvider {
-	@Value("${security.jwt.token.secret-key}")
-	private String secretKey;
 
-	@Value("${security.jwt.token.expires-minutes}")
-	private long minutesToExpiration;
+    @Value("${security.jwt.token.secret-key}")
+    private String secretKey;
 
-	@PostConstruct
-	protected void init() {
-		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-	}
+    @Value("${security.jwt.token.expires-minutes}")
+    private long minutesToExpiration;
 
-	public String buildJwtToken(UserAuthDto userAuthDto) {
-		Date now = new Date();
-		Date validity = new Date(now.getTime() + (minutesToExpiration * 60 * 1000));
-		JwtBuilder jwtBuilder = Jwts.builder();
-		jwtBuilder
-			.setSubject(userAuthDto.getName())
-			.setId(UUID.randomUUID().toString())
-			.claim("isAuthenticated", userAuthDto.isAuthenticated());
-		for (UserClaimDto userClaimDto : userAuthDto.getClaims()) {
-			jwtBuilder.claim(userClaimDto.getType(), userClaimDto.getValue());
-		}
-		return jwtBuilder
-				.setIssuedAt(now)
-				.setExpiration(validity)
-				.signWith(SignatureAlgorithm.HS256, this.secretKey)
-				.compact();
-	}
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
 
-	public String getUsername(String token) {
-		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-	}
+    public String buildJwtToken(UserAuthDto userAuthDto) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + (minutesToExpiration * 60 * 1000));
+        JwtBuilder jwtBuilder = Jwts.builder();
+        jwtBuilder
+                .setSubject(userAuthDto.getName())
+                .setId(UUID.randomUUID().toString())
+                .claim("isAuthenticated", userAuthDto.isAuthenticated());
+        for (UserClaimDto userClaimDto : userAuthDto.getClaims()) {
+            jwtBuilder.claim(userClaimDto.getType(), userClaimDto.getValue());
+        }
+        return jwtBuilder
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, this.secretKey)
+                .compact();
+    }
 
-	public String resolveToken(HttpServletRequest req) {
-		String bearerToken = req.getHeader("Authorization");
-		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-			return bearerToken.substring(7, bearerToken.length());
-		}
-		return null;
-	}
+    public String getUsername(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
 
-	public boolean validateToken(String token) throws Exception {
-		try {
-			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-			return true;
-		} catch (JwtException | IllegalArgumentException e) {
-			throw new Exception("Missing, invalid or expired token");
-		}
-	}
-	
-	public Authentication getAuthentication(String token) {
-		String userName = getUsername(token);
-		return new UsernamePasswordAuthenticationToken(userName, null, Collections.emptyList());
-	}
+    public String resolveToken(HttpServletRequest req) {
+        String bearerToken = req.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
+    }
+
+    public boolean validateToken(String token) throws Exception {
+        try {
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new Exception("Missing, invalid or expired token");
+        }
+    }
+
+    public Authentication getAuthentication(String token) {
+        String userName = getUsername(token);
+        return new UsernamePasswordAuthenticationToken(userName, null, Collections.emptyList());
+    }
 }
