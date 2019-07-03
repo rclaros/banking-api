@@ -10,7 +10,7 @@ install:
 deploy:
   provider: cloudfoundry
   username: reyi_claros@hotmail.com
-  password: ${cfpassword}
+  password: $cfpassword
   api: https://api.run.pivotal.io
   organization: ads2019i
   space: development
