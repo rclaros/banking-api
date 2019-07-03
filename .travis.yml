@@ -9,9 +9,11 @@ install:
 - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 deploy:
   provider: cloudfoundry
+  api: https://api.run.pivotal.io
   username: reyi_claros@hotmail.com
   password:
-    secure: tizTz+b1j6GIVa04gTySnc32VhnlL0Iaw6N7rpZPGk3D1c4tZElIlmIsQFllIO5CdhezzjkyBbyG6sYuNx2XUA1ovpUI8ZtLr3Y4fSWX3XAtz8bzfkdn+MdUz2f65n4KjowVrZMHy8QModGHZu6LQhn7IZHVp+jaftupOWhezxJzyyezI9G4iI5Xxq79+YimKQsbfHyp9I2hPNdvO+Rjj2Hv/whCVrAucCyHGFZcXdE+kFOVv9iNXiP1n4peiRiZ3+0a1zt44oq5/3GR5ww84zcQnu4v+Js8R8Oym6FK9IkW7nb6Kh6MM3AlcoxGMTnyGlmRu7e1/8BbX40FYn/ARlPti/eIpZSebpVxncywpw9MjNqQ81H+c6DuqK88zbVTIWIJufpaxVKWCgAVnia/SAEYVgOHKaF2eUAfFnXr8c2CN4VeLIhbAcmlSUZ5PFOP0zsk25llMiQmkFAOChfEXWQkA7XyT1BtMy65K9XcxOpBCUYlLFjjjZAqByEhBJeHF75x5OiDDXRB6BYn/CIV+suM3a+DaEcrSrOY3nrqMz+Ap9UZpygpe4Mkl7msdDYBtZDh05S9HtMtvIWOeoNp7fJCYA0wQMe/EDJ2TJ4jf+GM/lvsNelwahGff/S5NX/vxMaXl01EAREkt+msJ1hJOc15VdYGMiqcJwUky/B9ric=
-  api: https://api.run.pivotal.io
+    secure: raV/h+yVks+aibFuAiqFGTZFJaQVv5pFjRuwdFiXbZoYjFPLr90gXQam+NnYgSsqAHT/UlQCeo0zpI4UlIXtyQyUsj7Y35U7mbuyM3kZbb5OAKakJ5Gnk2TzmB5VIkVCS1KwdO2+zNcowyYRhgwRR0zmPLZrzBnOEjvAKYan2YidW6R5GJwZ12MNOgjBZDa5Huh4DDwATL+uzhZqITS2tVTgcxQUvD4gDv+S+2fQqxNYwdPvF3u/YXxPwoa960PVjV+suWxX6JrJqymGOETTeNwNpXEMVKioUG7gsRz0pQ8njbgOek4UKZrf4rSUkCKKJlZ+f//6H21oRvEJ5b9TrqehzTbrxNE7K3msShCYIYH7lize9sGQe6QG8pvnv62/j4c0AdKkvX/hwyp2YpDRfEW4ADnff2hWjEsxKN+VkyN26r6ESVlZHhinOqLpI1giVXnZQzVX9TcJgumVOyNHxUSEY2YdMIGde8iOO1A9I0mBEOMbleqf8kLaAWljHtEvYGX1M1l5GAm5jGalUdj++SQ0jnmxx98jMjUemeZVg+zUAFiY0Yg9gt+GbcvmKEtCUM2LQvpJ9EP409FMvqyu7lTbCLsKo4eetRuSJ1oaXYYx6mbHk90GJzvUYF38s5ssu2AzFi9ZQ+E1kZDT2I4J6cutHR+Aniyc3q3h/G606Hc=
   organization: ads2019i
   space: development
+  on:
+    repo: rclaros/banking-api
