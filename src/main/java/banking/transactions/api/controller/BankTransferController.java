@@ -15,22 +15,23 @@ import banking.transactions.application.dto.RequestBankTransferDto;
 @RestController
 @RequestMapping("api/transactions")
 public class BankTransferController {
-	@Autowired
-	TransactionApplicationService transactionApplicationService;
-	
-	@Autowired
-	ResponseHandler responseHandler;
 
-	@RequestMapping(method = RequestMethod.POST, path = "/transfer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-	public ResponseEntity<Object> performTransfer(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
-		try {
-			transactionApplicationService.performTransfer(requestBankTransferDto);
-			return this.responseHandler.getResponse("Transfer done!", HttpStatus.CREATED);
-		} catch(IllegalArgumentException ex) {
-			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
-		} catch(Exception ex) {
-			ex.printStackTrace();
-			return this.responseHandler.getAppExceptionResponse();
-		}
-	}
+    @Autowired
+    TransactionApplicationService transactionApplicationService;
+
+    @Autowired
+    ResponseHandler responseHandler;
+
+    @RequestMapping(method = RequestMethod.POST, path = "/transfer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Object> performTransfer(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+        try {
+            transactionApplicationService.performTransfer(requestBankTransferDto);
+            return this.responseHandler.getResponse("Transfer done!", HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return this.responseHandler.getAppExceptionResponse();
+        }
+    }
 }

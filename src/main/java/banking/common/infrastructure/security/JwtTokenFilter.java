@@ -35,7 +35,7 @@ public class JwtTokenFilter extends GenericFilterBean {
             throws IOException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
         try {
-            if (!isPublicEndPoint(req) && jwtTokenProvider.validateToken(token)) {
+            if (!isPublicEndPoint(req)) {
                 Authentication auth = token != null ? jwtTokenProvider.getAuthentication(token) : null;
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
@@ -64,8 +64,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) req;
         String path = request.getRequestURI().substring(request.getContextPath().length());
         System.out.println("PATH : " + path);
-        //return publicEndPoints.contains(path.toLowerCase());
-        return true;
+        return publicEndPoints.contains(path.toLowerCase());
     }
 
     private HashSet<String> getPublicEndPoints() {

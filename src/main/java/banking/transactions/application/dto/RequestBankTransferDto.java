@@ -8,40 +8,41 @@ import banking.transactions.application.dto.deserializer.RequestBankTransferDtoD
 
 @JsonDeserialize(using = RequestBankTransferDtoDeserializer.class)
 public class RequestBankTransferDto {
-	private String fromAccountNumber;
-	private String toAccountNumber;
-	private BigDecimal amount;
-	
-	public RequestBankTransferDto() {
-	}
-	
-	public RequestBankTransferDto(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
-		this.fromAccountNumber = fromAccountNumber;
-		this.toAccountNumber = toAccountNumber;
-		this.amount = amount;
-	}
 
-	public String getFromAccountNumber() {
-		return fromAccountNumber;
-	}
+    private String fromAccountNumber;
+    private String toAccountNumber;
+    private BigDecimal amount;
 
-	public void setFromAccountNumber(String fromAccountNumber) {
-		this.fromAccountNumber = fromAccountNumber;
-	}
+    public RequestBankTransferDto() {
+    }
 
-	public String getToAccountNumber() {
-		return toAccountNumber;
-	}
+    public RequestBankTransferDto(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
+        this.fromAccountNumber = fromAccountNumber;
+        this.toAccountNumber = toAccountNumber;
+        this.amount = amount;
+    }
 
-	public void setToAccountNumber(String toAccountNumber) {
-		this.toAccountNumber = toAccountNumber;
-	}
+    public String getFromAccountNumber() {
+        return fromAccountNumber;
+    }
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    public void setFromAccountNumber(String fromAccountNumber) {
+        this.fromAccountNumber = fromAccountNumber;
+    }
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    public String getToAccountNumber() {
+        return toAccountNumber;
+    }
+
+    public void setToAccountNumber(String toAccountNumber) {
+        this.toAccountNumber = toAccountNumber;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }

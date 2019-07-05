@@ -14,20 +14,21 @@ import banking.common.application.enumeration.RequestBodyType;
 import banking.transactions.application.dto.RequestBankTransferDto;
 
 public class RequestBankTransferDtoDeserializer extends JsonDeserializer<RequestBankTransferDto> {
-	@Override
-	public RequestBankTransferDto deserialize(JsonParser jsonParser, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
-		RequestBankTransferDto requestBankTransferDto = null;
-		try {
-    		ObjectCodec objectCodec = jsonParser.getCodec();
+
+    @Override
+    public RequestBankTransferDto deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
+        RequestBankTransferDto requestBankTransferDto = null;
+        try {
+            ObjectCodec objectCodec = jsonParser.getCodec();
             JsonNode node = objectCodec.readTree(jsonParser);
             String fromAccountNumber = node.get("fromAccountNumber").asText();
             String toAccountNumber = node.get("toAccountNumber").asText();
             BigDecimal amount = new BigDecimal(node.get("amount").asText());
             requestBankTransferDto = new RequestBankTransferDto(fromAccountNumber, toAccountNumber, amount);
-    	} catch(Exception ex) {
-    		requestBankTransferDto = new RequestBankTransferDto(RequestBodyType.INVALID.toString(), RequestBodyType.INVALID.toString(), null);
-    	}
+        } catch (Exception ex) {
+            requestBankTransferDto = new RequestBankTransferDto(RequestBodyType.INVALID.toString(), RequestBodyType.INVALID.toString(), null);
+        }
         return requestBankTransferDto;
-	}	
+    }
 }

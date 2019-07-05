@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="banking.transactions.entity">
+    <class name="HistoryTransaction" table="bank_transaction">
+        <id name="id" column="bank_history_id">
+            <generator class="native"/>
+        </id>
+        <property name="created" column="created" />
+        <property name="amount" column="amount" />
+        <many-to-one name="origin" class="banking.accounts.domain.entity.BankAccount" column="account_origin_id" not-null="true"/>
+        <many-to-one name="destination" class="banking.accounts.domain.entity.BankAccount" column="account_destination_id" not-null="true"/>
+    </class> 
+</hibernate-mapping>
