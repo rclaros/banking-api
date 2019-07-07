@@ -63,7 +63,6 @@ public class JwtTokenFilter extends GenericFilterBean {
         HashSet<String> publicEndPoints = getPublicEndPoints();
         HttpServletRequest request = (HttpServletRequest) req;
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("PATH : " + path);
         return publicEndPoints.contains(path.toLowerCase());
     }
 

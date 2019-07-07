@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import banking.accounts.domain.entity.BankAccount;
-import banking.transactions.domain.service.TransferDomainService;
 
 @ContextConfiguration({"classpath:test-spring-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)

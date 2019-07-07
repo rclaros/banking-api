@@ -1,5 +1,6 @@
 package banking.transactions.application;
 
+import banking.Translator;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import banking.transactions.application.dto.RequestBankTransferDto;
 import banking.transactions.domain.repository.HistoryTransactionRepository;
 import banking.transactions.domain.service.TransferDomainService;
 import banking.transactions.entity.HistoryTransaction;
-import java.util.Date;
+import banking.utils.DateUtils;
 
 @Service
 public class TransactionApplicationService {
@@ -40,14 +41,14 @@ public class TransactionApplicationService {
         history.setAmount(requestBankTransferDto.getAmount());
         history.setOrigin(originAccount);
         history.setDestination(originAccount);
-        history.setCreated(new Date());
+        history.setCreated(DateUtils.getCurrentDate());
         this.historyRepository.save(history);
     }
 
     private Notification validation(RequestBankTransferDto requestBankTransferDto) {
         Notification notification = new Notification();
         if (requestBankTransferDto == null || requestBankTransferDto.getFromAccountNumber().equals(RequestBodyType.INVALID.toString())) {
-            notification.addError("Invalid JSON data in request body.");
+            notification.addError(Translator.toLocale("message.json.parse"));
         }
         return notification;
     }

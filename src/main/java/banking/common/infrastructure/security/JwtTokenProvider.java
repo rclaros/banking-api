@@ -1,5 +1,6 @@
 package banking.common.infrastructure.security;
 
+import banking.Translator;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
@@ -69,7 +70,7 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new Exception("Missing, invalid or expired token");
+            throw new Exception(Translator.toLocale("message.token.expire"));
         }
     }
 

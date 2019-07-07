@@ -1,5 +1,6 @@
 package banking.accounts.application;
 
+import banking.Translator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -46,7 +47,7 @@ public class AccountApplicationService {
         Notification notification = new Notification();
         BankAccount bankAccount = bankAccountRepository.findByNumber(bankAccountDto.getNumber());
         if (bankAccount != null) {
-            notification.addError("BankAccount number is already registered");
+            notification.addError(Translator.toLocale("message.account.exist"));
         }
         return notification;
     }

@@ -6,13 +6,15 @@
 package banking.transactions.infrastucture.hibernate.repository;
 
 import banking.common.infrastructure.hibernate.repository.BaseHibernateRepository;
-import banking.transactions.application.dto.HistoryTransactionDto;
+import banking.transactions.application.dto.TransactionDto;
 import banking.transactions.domain.repository.HistoryTransactionRepository;
 import banking.transactions.entity.HistoryTransaction;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +27,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class HistoryTransactionHibernateRepository extends BaseHibernateRepository<HistoryTransaction> implements HistoryTransactionRepository {
 
     @Override
-    public List<HistoryTransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception {
-        List<HistoryTransactionDto> transactions = new ArrayList<>();
-        Criteria criteria = getSession().createCriteria(HistoryTransaction.class);
+    public List<TransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception {
+        List<TransactionDto> transactions = new ArrayList<>();
+        Criteria criteria = getSession().createCriteria(HistoryTransaction.class, "c");
+        if (start_transaction != null) {
+            criteria.add(Restrictions.gt("c.created", start_transaction));
+        }
+        if (end_trasaction != null) {
+            criteria.add(Restrictions.gt("c.created", end_trasaction));
+        }
+        criteria.addOrder(Order.asc("c.created"));
         criteria.setFirstResult(page);
         criteria.setMaxResults(pageSize);
         List<HistoryTransaction> history_transactions = criteria.list();
         for (HistoryTransaction transactionDAO : history_transactions) {
-            HistoryTransactionDto transaction = new HistoryTransactionDto();
+            TransactionDto transaction = new TransactionDto();
             transaction.setId(transactionDAO.getId());
             transaction.setOriginAccountNumber(transactionDAO.getOrigin().getNumber());
             transaction.setDestinationAccountNumber(transactionDAO.getDestination().getNumber());

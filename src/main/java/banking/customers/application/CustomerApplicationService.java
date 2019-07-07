@@ -1,5 +1,6 @@
 package banking.customers.application;
 
+import banking.Translator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -39,14 +40,15 @@ public class CustomerApplicationService {
             throw new IllegalArgumentException(notification.errorMessage());
         }
         List<Customer> customers = this.customerRepository.get(page, pageSize);
-        List<CustomerDto> customersDto = mapper.map(customers, new TypeToken<List<CustomerDto>>() {}.getType());
+        List<CustomerDto> customersDto = mapper.map(customers, new TypeToken<List<CustomerDto>>() {
+        }.getType());
         return customersDto;
     }
 
     private Notification getValidation(int page, int pageSize) {
         Notification notification = new Notification();
         if (pageSize > maxPageSize) {
-            notification.addError("Page size can not be greater than 100");
+            notification.addError(Translator.toLocale("message.page.exceed"));
         }
         return notification;
     }

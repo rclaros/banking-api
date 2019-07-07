@@ -29,8 +29,8 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Backing API Docs")
-                .description("ADS 2019")
+        return new ApiInfoBuilder().title(Translator.toLocale("message.swagger.title"))
+                .description(Translator.toLocale("message.swagger.description"))
                 .contact(new Contact("Team", "ADS 2019-I", "reyiclaros@gmail.com"))
                 .license("ADS 2019-I")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")

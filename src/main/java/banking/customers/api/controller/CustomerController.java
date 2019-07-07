@@ -1,6 +1,5 @@
 package banking.customers.api.controller;
 
-import banking.Translator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

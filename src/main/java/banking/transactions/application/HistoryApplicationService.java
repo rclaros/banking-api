@@ -5,7 +5,7 @@
  */
 package banking.transactions.application;
 
-import banking.transactions.application.dto.HistoryTransactionDto;
+import banking.transactions.application.dto.TransactionDto;
 import banking.transactions.domain.repository.HistoryTransactionRepository;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +22,7 @@ public class HistoryApplicationService {
     @Autowired
     private HistoryTransactionRepository transactionRepository;
 
-    public List<HistoryTransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception {
+    public List<TransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception {
         return transactionRepository.getTransactions(start_transaction, end_trasaction, page, pageSize);
     }
 

@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author RCLAROS
  */
-public class HistoryTransactionDto {
+public class TransactionDto {
 
     private int id;
     private Date create_time;

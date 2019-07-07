@@ -5,7 +5,7 @@
  */
 package banking.transactions.domain.repository;
 
-import banking.transactions.application.dto.HistoryTransactionDto;
+import banking.transactions.application.dto.TransactionDto;
 import banking.transactions.entity.HistoryTransaction;
 import java.util.Date;
 import java.util.List;
@@ -18,5 +18,5 @@ public interface HistoryTransactionRepository {
 
     HistoryTransaction save(HistoryTransaction historyTransaction) throws Exception;
 
-    List<HistoryTransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception;
+    List<TransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception;
 }

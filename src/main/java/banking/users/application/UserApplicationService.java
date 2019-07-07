@@ -1,5 +1,6 @@
 package banking.users.application;
 
+import banking.Translator;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,11 +56,11 @@ public class UserApplicationService {
     private Notification createValidation(UserDto userDto) {
         Notification notification = new Notification();
         if (userDto == null || userDto.getName().equals(RequestBodyType.INVALID.toString())) {
-            notification.addError("Invalid JSON data in request body.");
+            notification.addError(Translator.toLocale("message.json.parse"));
         }
         User user = userRepository.getByName(userDto.getName().trim());
         if (user != null) {
-            notification.addError("User name is already registered");
+            notification.addError(Translator.toLocale("message.user.exist"));
         }
         return notification;
     }
@@ -117,7 +118,7 @@ public class UserApplicationService {
     private Notification getPaginatedValidation(int page, int pageSize) {
         Notification notification = new Notification();
         if (pageSize > maxPageSize) {
-            notification.addError("Page size can not be greater than 100");
+            notification.addError(Translator.toLocale("message.page.exceed"));
         }
         return notification;
     }

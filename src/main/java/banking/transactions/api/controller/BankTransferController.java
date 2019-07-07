@@ -1,5 +1,6 @@
 package banking.transactions.api.controller;
 
+import banking.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class BankTransferController {
     public ResponseEntity<Object> performTransfer(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
         try {
             transactionApplicationService.performTransfer(requestBankTransferDto);
-            return this.responseHandler.getResponse("Transfer done!", HttpStatus.CREATED);
+            return this.responseHandler.getResponse(Translator.toLocale("message.transfer.done"), HttpStatus.CREATED);
         } catch (IllegalArgumentException ex) {
             return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
         } catch (Exception ex) {

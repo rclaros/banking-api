@@ -1,5 +1,6 @@
 package banking.transactions.domain.service;
 
+import banking.Translator;
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
@@ -29,21 +30,21 @@ public class TransferDomainService {
 
     private void validateAmount(Notification notification, BigDecimal amount) {
         if (amount == null) {
-            notification.addError("amount is missing");
+            notification.addError(Translator.toLocale("message.account.missing"));
             return;
         }
         if (amount.signum() <= 0) {
-            notification.addError("The amount must be greater than zero");
+            notification.addError(Translator.toLocale("message.account.less"));
         }
     }
 
     private void validateBankAccounts(Notification notification, BankAccount originAccount, BankAccount destinationAccount) {
         if (originAccount == null || destinationAccount == null) {
-            notification.addError("Cannot perform the transfer. Invalid data in bank accounts specifications");
+            notification.addError(Translator.toLocale("message.account.incomplete"));
             return;
         }
         if (originAccount.getNumber().equals(destinationAccount.getNumber())) {
-            notification.addError("Cannot transfer money to the same bank account");
+            notification.addError(Translator.toLocale("message.account.some"));
         }
     }
 }
