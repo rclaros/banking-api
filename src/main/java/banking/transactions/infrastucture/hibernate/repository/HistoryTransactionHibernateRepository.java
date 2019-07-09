@@ -52,4 +52,62 @@ public class HistoryTransactionHibernateRepository extends BaseHibernateReposito
         return transactions;
     }
 
+    @Override
+    public List<TransactionDto> getTransactionsByAccount(Date start_transaction, Date end_trasaction, long acountId, int page, int pageSize) throws Exception {
+        List<TransactionDto> transactions = new ArrayList<>();
+        Criteria criteria = getSession().createCriteria(HistoryTransaction.class, "c");
+        criteria.createAlias("c.origin", "or");
+        criteria.add(Restrictions.eq("or.id", acountId));
+
+        if (start_transaction != null) {
+            criteria.add(Restrictions.gt("c.created", start_transaction));
+        }
+        if (end_trasaction != null) {
+            criteria.add(Restrictions.gt("c.created", end_trasaction));
+        }
+        criteria.addOrder(Order.asc("c.created"));
+        criteria.setFirstResult(page);
+        criteria.setMaxResults(pageSize);
+        List<HistoryTransaction> history_transactions = criteria.list();
+        for (HistoryTransaction transactionDAO : history_transactions) {
+            TransactionDto transaction = new TransactionDto();
+            transaction.setId(transactionDAO.getId());
+            transaction.setOriginAccountNumber(transactionDAO.getOrigin().getNumber());
+            transaction.setDestinationAccountNumber(transactionDAO.getDestination().getNumber());
+            transaction.setAmount(transactionDAO.getAmount());
+            transaction.setCreate_time(transactionDAO.getCreated());
+            transactions.add(transaction);
+        }
+        return transactions;
+    }
+
+    @Override
+    public List<TransactionDto> getTransactionsByCustomer(Date start_transaction, Date end_trasaction, long customerId, int page, int pageSize) throws Exception {
+        List<TransactionDto> transactions = new ArrayList<>();
+        Criteria criteria = getSession().createCriteria(HistoryTransaction.class, "c");
+        criteria.createAlias("c.origin", "or");
+        criteria.createAlias("or.customer", "cu");
+        criteria.add(Restrictions.eq("cu.id", customerId));
+        if (start_transaction != null) {
+            criteria.add(Restrictions.gt("c.created", start_transaction));
+        }
+        if (end_trasaction != null) {
+            criteria.add(Restrictions.gt("c.created", end_trasaction));
+        }
+        criteria.addOrder(Order.asc("c.created"));
+        criteria.setFirstResult(page);
+        criteria.setMaxResults(pageSize);
+        List<HistoryTransaction> history_transactions = criteria.list();
+        for (HistoryTransaction transactionDAO : history_transactions) {
+            TransactionDto transaction = new TransactionDto();
+            transaction.setId(transactionDAO.getId());
+            transaction.setOriginAccountNumber(transactionDAO.getOrigin().getNumber());
+            transaction.setDestinationAccountNumber(transactionDAO.getDestination().getNumber());
+            transaction.setAmount(transactionDAO.getAmount());
+            transaction.setCreate_time(transactionDAO.getCreated());
+            transactions.add(transaction);
+        }
+        return transactions;
+    }
+
 }

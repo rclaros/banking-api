@@ -25,5 +25,11 @@ public class HistoryApplicationService {
     public List<TransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception {
         return transactionRepository.getTransactions(start_transaction, end_trasaction, page, pageSize);
     }
+    public List<TransactionDto> getTransactionsByAccount(Date start_transaction, Date end_trasaction,long accountId, int page, int pageSize) throws Exception {
+        return transactionRepository.getTransactions(start_transaction, end_trasaction, page, pageSize);
+    }
+    public List<TransactionDto> getTransactionsByCustomer(Date start_transaction, Date end_trasaction,long customerId, int page, int pageSize) throws Exception {
+        return transactionRepository.getTransactions(start_transaction, end_trasaction, page, pageSize);
+    }
 
 }

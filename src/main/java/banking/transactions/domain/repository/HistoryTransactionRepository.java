@@ -17,6 +17,10 @@ import java.util.List;
 public interface HistoryTransactionRepository {
 
     HistoryTransaction save(HistoryTransaction historyTransaction) throws Exception;
+    
+    List<TransactionDto> getTransactionsByAccount(Date start_transaction, Date end_trasaction,long acountId, int page, int pageSize) throws Exception;
+    
+    List<TransactionDto> getTransactionsByCustomer(Date start_transaction, Date end_trasaction,long customerId, int page, int pageSize) throws Exception;
 
     List<TransactionDto> getTransactions(Date start_transaction, Date end_trasaction, int page, int pageSize) throws Exception;
 }
