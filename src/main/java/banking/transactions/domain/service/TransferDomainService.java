@@ -21,10 +21,35 @@ public class TransferDomainService {
         destinationAccount.depositMoney(amount);
     }
 
+    public void withdrawMoney(BankAccount originAccount, BigDecimal amount)
+            throws IllegalArgumentException {
+        Notification notification = this.validation(originAccount, amount);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }
+        originAccount.withdrawMoney(amount);
+    }
+
+    public void depositMoney(BankAccount originAccount, BigDecimal amount)
+            throws IllegalArgumentException {
+        Notification notification = this.validation(originAccount, amount);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }
+        originAccount.depositMoney(amount);
+    }
+
     private Notification validation(BankAccount originAccount, BankAccount destinationAccount, BigDecimal amount) {
         Notification notification = new Notification();
         this.validateAmount(notification, amount);
-        this.validateBankAccounts(notification, originAccount, destinationAccount);
+        this.validateBankAccount(notification, originAccount);
+        return notification;
+    }
+
+    private Notification validation(BankAccount originAccount, BigDecimal amount) {
+        Notification notification = new Notification();
+        this.validateAmount(notification, amount);
+        this.validateBankAccount(notification, originAccount);
         return notification;
     }
 
@@ -45,6 +70,13 @@ public class TransferDomainService {
         }
         if (originAccount.getNumber().equals(destinationAccount.getNumber())) {
             notification.addError(Translator.toLocale("message.account.some"));
+        }
+    }
+
+    private void validateBankAccount(Notification notification, BankAccount originAccount) {
+        if (originAccount == null) {
+            notification.addError(Translator.toLocale("message.account.incomplete"));
+            return;
         }
     }
 }

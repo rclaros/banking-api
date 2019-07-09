@@ -40,9 +40,31 @@ public class TransactionApplicationService {
         HistoryTransaction history = new HistoryTransaction();
         history.setAmount(requestBankTransferDto.getAmount());
         history.setOrigin(originAccount);
-        history.setDestination(originAccount);
+        history.setDestination(destinationAccount);
         history.setCreated(DateUtils.getCurrentDate());
         this.historyRepository.save(history);
+    }
+
+    @Transactional
+    public void performTransferDeposit(RequestBankTransferDto requestBankTransferDto) throws Exception {
+        Notification notification = this.validation(requestBankTransferDto);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }
+        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getFromAccountNumber());
+        this.transferDomainService.depositMoney(originAccount, requestBankTransferDto.getAmount());
+        this.bankAccountRepository.save(originAccount);
+    }
+
+    @Transactional
+    public void performTransferWithdraw(RequestBankTransferDto requestBankTransferDto) throws Exception {
+        Notification notification = this.validation(requestBankTransferDto);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }
+        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getFromAccountNumber());
+        this.transferDomainService.withdrawMoney(originAccount, requestBankTransferDto.getAmount());
+        this.bankAccountRepository.save(originAccount);
     }
 
     private Notification validation(RequestBankTransferDto requestBankTransferDto) {

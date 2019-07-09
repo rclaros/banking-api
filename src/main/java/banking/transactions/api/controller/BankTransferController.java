@@ -35,4 +35,30 @@ public class BankTransferController {
             return this.responseHandler.getAppExceptionResponse();
         }
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/transfer_deposit", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Object> performTransferDeposit(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+        try {
+            transactionApplicationService.performTransferDeposit(requestBankTransferDto);
+            return this.responseHandler.getResponse(Translator.toLocale("message.transfer.done"), HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return this.responseHandler.getAppExceptionResponse();
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/transfer_withdraw", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Object> performTransferWithdraw(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+        try {
+            transactionApplicationService.performTransferWithdraw(requestBankTransferDto);
+            return this.responseHandler.getResponse(Translator.toLocale("message.transfer.done"), HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return this.responseHandler.getAppExceptionResponse();
+        }
+    }
 }
