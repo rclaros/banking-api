@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import banking.accounts.application.AccountApplicationService;
 import banking.accounts.application.dto.BankAccountDto;
 import banking.common.api.controller.ResponseHandler;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("api/customers/{customerId}/accounts")
-@Api(value = "api/customers/{customerId}/accounts")
 public class AccountsController {
 
     @Autowired
@@ -29,7 +27,6 @@ public class AccountsController {
     @Autowired
     ResponseHandler responseHandler;
 
-    @ApiOperation(value = "Create User", response = BankAccountDto.class)
     @RequestMapping(method = RequestMethod.POST, path = "", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Object> create(@PathVariable("customerId") long customerId, @RequestBody BankAccountDto bankAccountDto) throws Exception {
         try {

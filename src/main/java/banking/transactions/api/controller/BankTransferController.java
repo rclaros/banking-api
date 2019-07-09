@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import banking.common.api.controller.ResponseHandler;
 import banking.transactions.application.TransactionApplicationService;
+import banking.transactions.application.dto.OperationDto;
 import banking.transactions.application.dto.RequestBankTransferDto;
 
 @RestController
@@ -37,7 +38,7 @@ public class BankTransferController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/transfer_deposit", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Object> performTransferDeposit(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+    public ResponseEntity<Object> performTransferDeposit(@RequestBody OperationDto requestBankTransferDto) throws Exception {
         try {
             transactionApplicationService.performTransferDeposit(requestBankTransferDto);
             return this.responseHandler.getResponse(Translator.toLocale("message.transfer.done"), HttpStatus.CREATED);
@@ -50,7 +51,7 @@ public class BankTransferController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/transfer_withdraw", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Object> performTransferWithdraw(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+    public ResponseEntity<Object> performTransferWithdraw(@RequestBody OperationDto requestBankTransferDto) throws Exception {
         try {
             transactionApplicationService.performTransferWithdraw(requestBankTransferDto);
             return this.responseHandler.getResponse(Translator.toLocale("message.transfer.done"), HttpStatus.CREATED);

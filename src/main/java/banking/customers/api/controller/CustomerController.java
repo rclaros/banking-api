@@ -42,7 +42,7 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.GET, path = "", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    ResponseEntity<Object> getPaginated(
+    ResponseEntity<Object> getCustomers(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "pageSize", required = false, defaultValue = "100") int pageSize) {
         try {

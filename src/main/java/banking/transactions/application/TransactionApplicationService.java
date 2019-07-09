@@ -10,6 +10,7 @@ import banking.accounts.domain.entity.BankAccount;
 import banking.accounts.domain.repository.BankAccountRepository;
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
+import banking.transactions.application.dto.OperationDto;
 import banking.transactions.application.dto.RequestBankTransferDto;
 import banking.transactions.domain.repository.HistoryTransactionRepository;
 import banking.transactions.domain.service.TransferDomainService;
@@ -46,23 +47,23 @@ public class TransactionApplicationService {
     }
 
     @Transactional
-    public void performTransferDeposit(RequestBankTransferDto requestBankTransferDto) throws Exception {
+    public void performTransferDeposit(OperationDto requestBankTransferDto) throws Exception {
         Notification notification = this.validation(requestBankTransferDto);
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getFromAccountNumber());
+        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getAccountNumber());
         this.transferDomainService.depositMoney(originAccount, requestBankTransferDto.getAmount());
         this.bankAccountRepository.save(originAccount);
     }
 
     @Transactional
-    public void performTransferWithdraw(RequestBankTransferDto requestBankTransferDto) throws Exception {
+    public void performTransferWithdraw(OperationDto requestBankTransferDto) throws Exception {
         Notification notification = this.validation(requestBankTransferDto);
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getFromAccountNumber());
+        BankAccount originAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getAccountNumber());
         this.transferDomainService.withdrawMoney(originAccount, requestBankTransferDto.getAmount());
         this.bankAccountRepository.save(originAccount);
     }
@@ -70,6 +71,14 @@ public class TransactionApplicationService {
     private Notification validation(RequestBankTransferDto requestBankTransferDto) {
         Notification notification = new Notification();
         if (requestBankTransferDto == null || requestBankTransferDto.getFromAccountNumber().equals(RequestBodyType.INVALID.toString())) {
+            notification.addError(Translator.toLocale("message.json.parse"));
+        }
+        return notification;
+    }
+
+    private Notification validation(OperationDto requestBankTransferDto) {
+        Notification notification = new Notification();
+        if (requestBankTransferDto == null || requestBankTransferDto.getAccountNumber().equals(RequestBodyType.INVALID.toString())) {
             notification.addError(Translator.toLocale("message.json.parse"));
         }
         return notification;
