@@ -60,7 +60,7 @@ public class UsersController {
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
     		@RequestParam(value = "pageSize", required = false, defaultValue = "100") int pageSize) throws Exception {
 		try {
-			List<UserDto> users = userApplicationService.getPaginated(page, pageSize);
+			List<UserDto> users = userApplicationService.getUsers(page, pageSize);
 			return new ResponseEntity<Object>(users, HttpStatus.OK);
 		} catch(IllegalArgumentException ex) {
 			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());

@@ -8,7 +8,7 @@ public class User {
     private String name;
     private String password;
     private String fullName;
-    private String addess;
+    private String address;
     private Set<UserClaim> claims;
 
     public User() {
@@ -54,12 +54,14 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getAddess() {
-        return addess;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddess(String addess) {
-        this.addess = addess;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    
 
 }

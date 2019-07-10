@@ -90,6 +90,7 @@ public class UserApplicationService {
         userAuthDto.setId(authUser.getId());
         userAuthDto.setName(authUser.getName());
         userAuthDto.setFullName(authUser.getFullName());
+        userAuthDto.setAddress(authUser.getAddress());
         userAuthDto.setAuthenticated(true);
         userAuthDto.setBearerToken(new UUID(0L, 0L).toString());
         List<UserClaimDto> claims = this.getUserClaims(authUser);
@@ -105,7 +106,7 @@ public class UserApplicationService {
         return userDto;
     }
 
-    public List<UserDto> getPaginated(int page, int pageSize) {
+    public List<UserDto> getUsers(int page, int pageSize) {
         Notification notification = this.getPaginatedValidation(page, pageSize);
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
