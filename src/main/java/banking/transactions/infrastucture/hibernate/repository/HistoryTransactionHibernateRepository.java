@@ -6,7 +6,6 @@
 package banking.transactions.infrastucture.hibernate.repository;
 
 import banking.common.infrastructure.hibernate.repository.BaseHibernateRepository;
-import banking.customers.domain.entity.Customer;
 import banking.transactions.application.dto.TransactionDto;
 import banking.transactions.domain.repository.HistoryTransactionRepository;
 import banking.transactions.entity.HistoryTransaction;
@@ -19,10 +18,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.BigDecimalType;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.DateType;
 import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
 import org.springframework.stereotype.Repository;
