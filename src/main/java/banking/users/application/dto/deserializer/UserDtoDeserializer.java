@@ -24,6 +24,14 @@ public class UserDtoDeserializer extends JsonDeserializer<UserDto> {
             String name = node.get("name").asText();
             String password = node.get("password").asText();
             userDto = new UserDto(name, password);
+            if (node.get("fullName") != null) {
+                String fullName = node.get("fullName").asText();
+                userDto.setFullName(fullName);
+            }
+            if (node.get("address") != null) {
+                String address = node.get("address").asText();
+                userDto.setAddress(address);
+            }
         } catch (Exception ex) {
             userDto = new UserDto(RequestBodyType.INVALID.toString(), RequestBodyType.INVALID.toString());
         }

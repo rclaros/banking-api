@@ -8,6 +8,7 @@ public class UserAuthDto {
 
     private long id;
     private String name;
+    private String fullName;
     private String bearerToken;
     private boolean isAuthenticated;
     private List<UserClaimDto> claims;
@@ -55,4 +56,13 @@ public class UserAuthDto {
     public void setClaims(List<UserClaimDto> claims) {
         this.claims = claims;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+    
 }

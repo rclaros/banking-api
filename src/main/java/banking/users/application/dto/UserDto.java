@@ -12,6 +12,8 @@ public class UserDto {
     private long id;
     private String name;
     private String password;
+    private String fullName;
+    private String address;
     private Set<UserClaimDto> claims;
 
     public UserDto() {
@@ -53,4 +55,21 @@ public class UserDto {
     public void setClaims(Set<UserClaimDto> claims) {
         this.claims = claims;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

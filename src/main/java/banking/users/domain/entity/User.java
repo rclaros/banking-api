@@ -7,6 +7,8 @@ public class User {
     private long id;
     private String name;
     private String password;
+    private String fullName;
+    private String addess;
     private Set<UserClaim> claims;
 
     public User() {
@@ -43,4 +45,21 @@ public class User {
     public void setClaims(Set<UserClaim> claims) {
         this.claims = claims;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAddess() {
+        return addess;
+    }
+
+    public void setAddess(String addess) {
+        this.addess = addess;
+    }
+
 }

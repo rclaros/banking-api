@@ -89,6 +89,7 @@ public class UserApplicationService {
         UserAuthDto userAuthDto = new UserAuthDto();
         userAuthDto.setId(authUser.getId());
         userAuthDto.setName(authUser.getName());
+        userAuthDto.setFullName(authUser.getFullName());
         userAuthDto.setAuthenticated(true);
         userAuthDto.setBearerToken(new UUID(0L, 0L).toString());
         List<UserClaimDto> claims = this.getUserClaims(authUser);
