@@ -28,7 +28,7 @@ public class UserHibernateRepository extends BaseHibernateRepository<User> imple
     public User getByName(String name) {
         User user = null;
         Criteria criteria = getSession().createCriteria(User.class, "u");
-        criteria.createAlias("u.claims", "c");
+        criteria.createAlias("u.claims", "c",JoinType.LEFT_OUTER_JOIN);
         criteria.add(Restrictions.eq("u.name", name));
         user = (User) criteria.uniqueResult();
         return user;
