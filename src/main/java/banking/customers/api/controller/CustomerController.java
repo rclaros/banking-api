@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import banking.common.api.controller.ResponseHandler;
 import banking.customers.application.CustomerApplicationService;
 import banking.customers.application.dto.CustomerDto;
-import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("api/customers")
-@Api(value = "api/customers")
 public class CustomerController {
 
     @Autowired
